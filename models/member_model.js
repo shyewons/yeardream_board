@@ -5,6 +5,7 @@ const memberSchema = new mongoose.Schema({
     id : {
         type: String,
         required: [true, 'id는 필수 입력입니다.'],
+        unique: [true, '중복된 id가 있습니다.'],
         trim : true,
         minlength: [5, 'id는 5자 이상 적어주세요.'],
         maxlength: [20, 'id는 20자 이하로 적어주세요.']
@@ -14,7 +15,8 @@ const memberSchema = new mongoose.Schema({
         required: [true, 'pass는 필수 입력입니다.'],
         trim : true,
         minlength: [5, 'pass는 5자 이상 적어주세요.'],
-        maxlength: [20, 'pass는 20자 이하로 적어주세요.']
+        maxlength: [20, 'pass는 20자 이하로 적어주세요.'],
+        select: false, // 조회할 때 select :false인 필드는 가져오지 않는다.
     },
     name : {
         type: String,

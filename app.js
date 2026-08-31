@@ -14,7 +14,9 @@ const connectDB = require('./db');
 // use : 미들웨어를 Express 앱에 등록하는 메서드 "이 서버로 요청이 들어오면 이 처리를 거쳐라"
 app.use(cors()); // 이 요청을 다른 출처에서 보내도 허용
 app.use(express.json()); // 요청으로 들어온 JSON 형식의 body를 읽고, 파싱해서 req.body로 쓸 수 있게 해라
+
 app.use('/board', require('./routes/board_router')); // /board로 시작하는 요청은 board_router.js에서 처리
+app.use('/member', require('./routes/member_router')); // /board로 시작하는 요청은 board_router.js에서 처리
 
 connectDB();
 

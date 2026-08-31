@@ -38,7 +38,7 @@ router.get(['/list', '/'], async (req, res) => {
     * 그래서 현재와 같이 단순 리스트 조회의 경우에는 그대로 JSON으로 내보내기만 하기 때문에 .lean()을 쓰는게 더 자연스럽다
     * */
 
-    res.json({'success': true, 'data': {'info': list, 'msg': '게시글 리스트 조회 완료'}});
+    return res.json({'success': true, 'data': {'info': list, 'msg': '게시글 리스트 조회 완료'}});
 });
 
 /*
@@ -57,10 +57,10 @@ router.post('/write', async (req, res) => {
         // 여기다 Board 객체를 사용한 비동기 코드를 작성
         // 비동기 코드가 실행되다 실패할 수 있으니 try, catch를 사용
         let result = await Board.create({title, content, writer});
-        res.json({success: true, 'data': {'info' : result, 'msg' : '게시글 작성 완료'}});
+        return res.json({'success': true, 'data': {'info' : result, 'msg' : '게시글 작성 완료'}});
     } catch(e) {
         console.log(e, 'CODE :'+e.code);
-        res.json({success: false,  'data': {'info' : {}, 'msg' : e.code}});
+        return res.json({'success': false,  'data': {'info' : {}, 'msg' : e.code}});
     }
 });
 
@@ -71,9 +71,9 @@ router.get('/detail/:id', async (req, res) => {
     const board = await Board.findOne({_id : id}).lean();
 
     if(board == null) {
-        res.json({'success': false, 'data':{'info': {}, 'msg': '게시글이 존재하지 않습니다.'} });
+        return res.json({'success': false, 'data':{'info': {}, 'msg': '게시글이 존재하지 않습니다.'} });
     }
-    res.json({'success': true, 'data':{'info': board, 'msg': '상세보기 완료'}});
+    return res.json({'success': true, 'data':{'info': board, 'msg': '상세보기 완료'}});
 });
 
 // 게시글 삭제
@@ -88,9 +88,9 @@ router.delete('/delete/:id', async (req, res) => {
     const board = await Board.findOneAndDelete({_id:id}).lean();
 
     if(board == null) {
-        res.json({'success': false, 'data':{'info': board, 'msg': '삭제 실패'}});
+        return res.json({'success': false, 'data':{'info': board, 'msg': '삭제 실패'}});
     }
-    res.json({'success': true, 'data':{'info': board, 'msg': '삭제 완료'}});
+    return res.json({'success': true, 'data':{'info': board, 'msg': '삭제 완료'}});
 });
 
 module.exports = router;
