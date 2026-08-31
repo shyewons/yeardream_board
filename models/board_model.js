@@ -41,4 +41,5 @@ const boardSchema = new mongoose.Schema({
 });
 
 // mongoose.model() → 스키마를 실제 DB CRUD가 가능한 Model로 변환 하는 함수
+// model의 첫번째 인자는 mongoose에서 관리하는 이름이다
 module.exports = mongoose.model('Board', boardSchema);

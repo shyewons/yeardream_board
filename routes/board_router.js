@@ -76,4 +76,21 @@ router.get('/detail/:id', async (req, res) => {
     res.json({'success': true, 'data':{'info': board, 'msg': '상세보기 완료'}});
 });
 
+// 게시글 삭제
+router.delete('/delete/:id', async (req, res) => {
+    const {id} = req.params;
+    /*
+    * findOneAndDelete()
+    * 조건에 맞는 document(문서)를 찾아 삭제한다.
+    * ({})로 빈 객체를 보낸다면 첫번째로 매칭되는 문서를 삭제한다.
+    * 조건에 맞는 문서가 없다면 삭제되지 않고 null을 반환한다.
+    * */
+    const board = await Board.findOneAndDelete({_id:id}).lean();
+
+    if(board == null) {
+        res.json({'success': false, 'data':{'info': board, 'msg': '삭제 실패'}});
+    }
+    res.json({'success': true, 'data':{'info': board, 'msg': '삭제 완료'}});
+});
+
 module.exports = router;
