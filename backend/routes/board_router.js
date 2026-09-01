@@ -1,3 +1,5 @@
+const multer = require('multer');
+const upload = multer();
 const express = require('express');
 const router = express.Router();
 /*
@@ -48,15 +50,21 @@ router.get(['/list', '/'], async (req, res) => {
 * */
 
 // 게시글 작성 (/board/write)
-router.post('/write', async (req, res) => {
+/* 
+* form으로 받은 데이터는 서버가 multipart/form-data를 제대로 파싱할 수 있도록 
+* multer 패키지를 설치한 후 미들웨어로 사용해야 한다
+* ? 미들웨어는 라우터로 가기 전에 넣어두는 것이 아닌가?
+* → 라우트 안에서 이렇게 중간 인자로 넣는 것도 미들 웨어다.
+*/
+router.post('/write', upload.none(), async (req, res) => {
     // req를 통해 데이터를 받아온다. 내가 원하는 데이터는 body에 담겨온다.
     // 테스트 데이터를 담아서 보내려니까 이제 test.http의 필요성을 알았다.
     // res.json({})를 사용해야 응답해 줘야 test.http가 멈출 수 있다.
-    const {title, content, writer} = req.body;
+    const {title, content, id} = req.body;
     try {
         // 여기다 Board 객체를 사용한 비동기 코드를 작성
         // 비동기 코드가 실행되다 실패할 수 있으니 try, catch를 사용
-        let result = await Board.create({title, content, writer});
+        let result = await Board.create({title, content, id});
         return res.json({'success': true, 'data': {'info' : result, 'msg' : '게시글 작성 완료'}});
     } catch(e) {
         console.log(e, 'CODE :'+e.code);

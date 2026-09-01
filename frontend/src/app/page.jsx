@@ -18,27 +18,28 @@ export default function App() {
             sessionStorage.setItem('token', data.data.token);
             token = sessionStorage.getItem('token');
             // console.log(sessionStorage.getItem('id') , sessionStorage.getItem('token'));
-            location.href = '/list';
+            location.href = '/list/1';
         }
         console.log(data);
     }
 
     // 게시글 조회
-    const list = async () => {
-        console.log(token);
-        const {data} = await axios.get('http://localhost/board/list'
-            ,{headers:{"Authorization": token}});
-        console.log(data);
-        // data.data.info
-    }
+    // const list = async () => {
+    //     console.log(token);
+    //     const {data} = await axios.get('http://localhost/board/list'
+    //         ,{headers:{"Authorization": token}});
+    //     console.log(data);
+    //     // data.data.info
+    // }
 
     // 게시글 상세보기
-    const detail = async () => {
-        const {data} = await axios.get('http://localhost/board/detail/6a9523b1be5e93c5df513568'
-            ,{headers:{"Authorization": token}});
-        console.log(data);
-    }
+    // const detail = async () => {
+    //     const {data} = await axios.get('http://localhost/board/detail/6a9523b1be5e93c5df513568'
+    //         ,{headers:{"Authorization": token}});
+    //     console.log(data);
+    // }
 
+    // 게시글 작성
     const write = async () => {
         /*
         * 예시 코드에서는 new FormData()로 객체에 내용을 담아서
