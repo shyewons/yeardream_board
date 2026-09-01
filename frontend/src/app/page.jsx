@@ -66,8 +66,8 @@ export default function App() {
     return (
         <>
             <button onClick={login}>로그인</button>
-            <button onClick={list}>게시글 목록 조회</button>
-            <button onClick={detail}>게시글 상세보기</button>
+            {/*<button onClick={list}>게시글 목록 조회</button>*/}
+            {/*<button onClick={detail}>게시글 상세보기</button>*/}
             <button onClick={write}>새 게시글 작성</button>
             <button onClick={boardDelete}>삭제</button>
         </>

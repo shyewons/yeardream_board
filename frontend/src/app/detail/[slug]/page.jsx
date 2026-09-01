@@ -26,18 +26,15 @@ export default function DetailPage({params}) {
     const [board, setBoard] = useState([]);
 
     useEffect(() => {
-        console.log(params);
         params.then(({slug}) => {
             loadBoard(slug);
         });
     }, [params]);
 
-    const loadBoard = async (slug) => {
-        let token = sessionStorage.getItem('token');
-        console.log(token);
-
+    const loadBoard = async (id) => {
+        const token = sessionStorage.getItem('token');
         try {
-            const {data} = await axios.get(`http://localhost/board/detail/${slug}`
+            const {data} = await axios.get(`http://localhost/board/detail/${id}`
                 ,{headers:{"Authorization": token}});
             console.log(data);
             setBoard(data.data.info);
@@ -45,6 +42,19 @@ export default function DetailPage({params}) {
             console.log(e);
         }
     }
+
+    const deleteFn = async (id) => {
+        const token = sessionStorage.getItem('token');
+        try {
+            const {data} = await axios.delete(`http://localhost/board/delete/${id}`
+                ,{headers:{"Authorization": token}});
+            console.log(data);
+            location.href="/list/1";
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
     return (
         <>
             <h1>상세보기</h1>
@@ -55,7 +65,7 @@ export default function DetailPage({params}) {
             <p>
                 {board.content}
             </p>
-            {/*<button onClick={deleteFn}>삭제</button>*/}
+            <button onClick={() => {deleteFn(board._id)}}>삭제</button>
         </>
     );
 }

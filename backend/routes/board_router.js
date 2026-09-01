@@ -60,11 +60,11 @@ router.post('/write', upload.none(), async (req, res) => {
     // req를 통해 데이터를 받아온다. 내가 원하는 데이터는 body에 담겨온다.
     // 테스트 데이터를 담아서 보내려니까 이제 test.http의 필요성을 알았다.
     // res.json({})를 사용해야 응답해 줘야 test.http가 멈출 수 있다.
-    const {title, content, id} = req.body;
+    const {title, content, writer} = req.body;
     try {
         // 여기다 Board 객체를 사용한 비동기 코드를 작성
         // 비동기 코드가 실행되다 실패할 수 있으니 try, catch를 사용
-        let result = await Board.create({title, content, id});
+        let result = await Board.create({title, content, writer});
         return res.json({'success': true, 'data': {'info' : result, 'msg' : '게시글 작성 완료'}});
     } catch(e) {
         console.log(e, 'CODE :'+e.code);

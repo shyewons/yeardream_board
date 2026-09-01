@@ -23,7 +23,7 @@ export default function WritePage() {
         let formData = new FormData();
         formData.append("title", post.title);
         formData.append("content", post.content);
-        formData.append("user_name", id);
+        formData.append("writer", id);
         for (const [key, value] of formData.entries()) {
             console.log(key, value);
         }
@@ -33,8 +33,9 @@ export default function WritePage() {
                 , formData
                 , {headers: {"Authorization": token}});
             console.log(data);
+            console.log(data.data.info._id);
 
-            location.href= `/detail/${data._id}`;
+            location.href= `/detail/${data.data.info._id}`;
         } catch(e) {
             console.log(e);
         }
