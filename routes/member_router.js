@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const router = express.Router();
 const Member = require('../models/member_model');
@@ -35,15 +37,16 @@ router.post('/login', async (req, res) => {
 
     // jwt 생성
     if (member == null) {
-        return res.json({success: false,  'data': {'info' : {}, 'msg' : '아이디와 비밀번호를 확인해 주세요.'}});
+        return res.json({'success': false,  'data': {'info' : {}, 'msg' : '아이디와 비밀번호를 확인해 주세요.'}});
     }
 
     // jwt.sign({payload, secretKey, option})
     // payload : 토큰에 담을 정보
     // secretKey : 토큰 서명에 사용할 비밀키
     // option : 토큰 설정
+    // process.env.SECRET → .env 파일에 있는 SECRET 값을 사용한다.
     const token = jwt.sign({"id": id, "pass": pass}, process.env.SECRET, {expiresIn: '1h'});
-    return res.json({'id':id, 'token': token});
+    return res.json({'success': true, 'data' : {'id':id, 'token': token} });
 });
 
 module.exports = router;
