@@ -1,0 +1,4 @@
+.list_ul { margin: 15px auto; border: 1px solid #ddd; padding: 0}
+.list_ul li { display: flex; border-bottom: 1px solid #ddd; padding: 15px; justify-content: space-between;}
+.list_ul li:nth-last-child(1) {border-bottom: none; }
+.list_ul li p:first-child { font-weight: bold; }

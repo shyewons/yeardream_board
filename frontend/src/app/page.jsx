@@ -18,7 +18,7 @@ export default function App() {
             sessionStorage.setItem('token', data.data.token);
             token = sessionStorage.getItem('token');
             // console.log(sessionStorage.getItem('id') , sessionStorage.getItem('token'));
-            // location.href = '/list/1';
+            location.href = '/list';
         }
         console.log(data);
     }
